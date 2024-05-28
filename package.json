@@ -1,0 +1,11 @@
+{
+  "name": "simplescripts",
+  "version": "1.0.0",
+  "description": "This project uses data driven programming to create automated scripts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Angelo Jayson Esmeralda",
+  "license": "MIT"
+}
