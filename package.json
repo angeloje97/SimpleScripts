@@ -9,6 +9,10 @@
   "author": "Angelo Jayson Esmeralda",
   "license": "MIT",
   "dependencies": {
-    "selenium-webdriver": "^4.21.0"
+    "selenium-webdriver": "^4.21.0",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/selenium-webdriver": "^4.1.22"
   }
 }
