@@ -1,19 +1,28 @@
 import chrome from "selenium-webdriver/chrome";
 import { Builder, By, Key, ThenableWebDriver, until } from "selenium-webdriver";
+import { Logger } from "../Logging/Logger";
 
-function delay(ms: number): Promise<void> {
+export function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export class ChromeDriverHandler {
-  static instance: ChromeDriverHandler;
+export class ChromeHandler {
+  //#region Singleton
+  //#region  Common Data
+  private className = "ChomeHandler";
+  //#endregion
 
-  public static Instance(): ChromeDriverHandler {
-    if (this.instance == null) this.instance = new ChromeDriverHandler();
+  static instance: ChromeHandler;
+
+  public static Instance(): ChromeHandler {
+    if (this.instance == null) this.instance = new ChromeHandler();
     return this.instance;
   }
+  //#endregion
 
-  public async openChrome(): Promise<void> {
+  public async openChrome(action: DriverFunction): Promise<void> {
+    Logger.LogFunction(`${this.className}::openChrome() Start`);
+
     const options = new chrome.Options();
 
     const driver = new Builder()
@@ -29,8 +38,16 @@ export class ChromeDriverHandler {
       const title = await driver.getTitle();
       console.log(`Title is : ${title}`);
     } finally {
-      await delay(5000);
+      await action(driver);
       await driver.quit();
     }
+
+    Logger.LogFunction(`${this.className}::openChrome() End`);
   }
 }
+
+//#region Types
+
+export type DriverFunction = (driver: ThenableWebDriver) => Promise<void>;
+
+//#endregion
