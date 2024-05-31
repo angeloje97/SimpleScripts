@@ -7,21 +7,12 @@ export function delay(ms: number): Promise<void> {
 }
 
 export class ChromeHandler {
-  //#region Singleton
   //#region  Common Data
   private className = "ChomeHandler";
   //#endregion
 
-  static instance: ChromeHandler;
-
-  public static Instance(): ChromeHandler {
-    if (this.instance == null) this.instance = new ChromeHandler();
-    return this.instance;
-  }
-  //#endregion
-
   public async openChrome(action: DriverFunction): Promise<void> {
-    Logger.LogFunction(`${this.className}::openChrome() Start`);
+    Logger.LogFunction(`${this.className}::openChrome Start`);
 
     const options = new chrome.Options();
 
@@ -42,7 +33,7 @@ export class ChromeHandler {
       await driver.quit();
     }
 
-    Logger.LogFunction(`${this.className}::openChrome() End`);
+    Logger.LogFunction(`${this.className}::openChrome End`);
   }
 }
 

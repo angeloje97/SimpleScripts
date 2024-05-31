@@ -1,6 +1,6 @@
 export class Logger {
   private static activeLogType = {
-    functionCall: false,
+    functionCall: true,
   };
 
   public static LogFunction(message: string): void {
