@@ -1,29 +1,32 @@
-import { ButtonHandler } from "./ButtonHandler";
-import { InputHandler } from "./InputHandler";
-
 export class ElementHandler {
-  private handlers: { [key: string]: new () => BaseHandler };
+  private handlers: { [key: string]: (data: HandlerData) => Promise<void> };
 
   constructor() {
     this.handlers = {
-      Button: ButtonHandler,
-      Input: InputHandler,
+      Button: buttonHandler,
+      Input: inputHandler,
     };
   }
 
-  public getHandler(handlerName: string): BaseHandler {
+  public getHandler(handlerName: string): (data: HandlerData) => Promise<void> {
     if (!this.handlers[handlerName]) {
-      return new BaseHandler();
+      return defaultHandler;
     }
 
-    return new this.handlers[handlerName]();
+    return this.handlers[handlerName];
   }
 }
 
-export class BaseHandler {
-  public async handleData(data: HandlerData): Promise<void> {}
-}
+//#region Handlers
+const defaultHandler = async (data: HandlerData): Promise<void> => {};
 
+const buttonHandler = async (data: HandlerData): Promise<void> => {};
+
+const inputHandler = async (data: HandlerData): Promise<void> => {};
+
+//#endregion
+
+//#region Types
 export type HandlerData = {
   elementID: string;
   waitData?: {
@@ -31,3 +34,4 @@ export type HandlerData = {
     time: number;
   };
 };
+//#endregion
