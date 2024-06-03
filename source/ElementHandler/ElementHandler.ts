@@ -5,6 +5,7 @@ export class ElementHandler {
     this.handlers = {
       Button: buttonHandler,
       Input: inputHandler,
+      URL: urlHandler,
     };
   }
 
@@ -23,6 +24,8 @@ const defaultHandler = async (data: HandlerData): Promise<void> => {};
 const buttonHandler = async (data: HandlerData): Promise<void> => {};
 
 const inputHandler = async (data: HandlerData): Promise<void> => {};
+
+const urlHandler = async (data: HandlerData): Promise<void> => {};
 
 //#endregion
 
