@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { parseStringPromise } from "xml2js";
 import { Logger } from "../Logging/Logger";
+import { ElementHandler, HandlerData } from "./ElementHandler";
 const fileName = "ScriptReader.ts";
 
 const getXMLFiles = async (directory: string): Promise<object[]> => {
@@ -22,7 +23,9 @@ const getXMLFiles = async (directory: string): Promise<object[]> => {
         ...(await parseStringPromise(data)),
       };
       xmlObjects.push(obj);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   Logger.LogFunction(`End ${fileName}::getXMLFiles(${directory})`);
@@ -38,7 +41,14 @@ export const readScripts = async () => {
   );
   console.log(targetLocation);
   const xmlObjects = await getXMLFiles(targetLocation);
+
   console.log(xmlObjects);
+
+  for (const file of xmlObjects) {
+    for (const script in file) {
+      console.log(script);
+    }
+  }
 
   Logger.LogFunction(`End ${fileName}::readScripts()`);
 };
